@@ -1,0 +1,118 @@
+@import '../../styles/variables.scss';
+
+.btn {    
+    border-radius: 8px;
+    font-weight: 600;   
+    border: none;
+    transition: all 0.5s;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.accent {
+    background-color: $color-accent;
+    box-shadow: 0 0 12px rgba($color: $color-accent, $alpha: 0.4);
+    color: $color-white;
+
+    a {
+        color: $color-white;
+        text-decoration: none;
+    }
+    
+    &:hover {
+        box-shadow: 0 0 15px rgba($color: $color-accent, $alpha: 0.7);
+        background-color: #655df7;
+    }
+}
+
+.transparent {
+    background-color: transparent;
+    color: $color-text-primary;
+    border: 1px solid $color-border;   
+
+    a {
+        color: $color-text-primary;
+        text-decoration: none;
+    }
+
+    &:hover {
+        background-color: $color-white;
+    }
+}
+
+.dashed {
+    background-color: transparent;
+    color: $color-text-secondary;
+    border: 2px dashed $color-border;   
+
+    a {
+        color: $color-text-secondary;
+        text-decoration: none;
+    }
+
+    
+    &:hover {
+        background-color: color-mix(in srgb, $color-accent 10%, transparent);
+        border: 2px solid $color-accent;
+        color: $color-accent;
+    }
+
+}
+
+.transparent-accent {
+    background-color: color-mix(in srgb, $color-accent 10%, transparent);
+    color: $color-accent;
+
+    a {
+        color: $color-accent;
+        text-decoration: none;
+    }
+
+    &:hover {
+        background-color: color-mix(in srgb, $color-accent 20%, transparent);
+        
+    }
+}
+
+.danger {
+    background-color: transparent;
+    color: $color-text-primary;
+    border: 1px solid $color-border;
+
+    
+    &:hover {
+        border-color: $color-red;
+        color: $color-red;
+    }
+}
+
+.small {
+    font-size: 14px;
+    padding: 8px 16px;
+}
+
+.navigate {
+    padding: 8px;
+}
+
+.big {
+    font-size: 16px;
+    padding: 14px 28px;
+    border-radius: 12px;
+}
+
+.modal-btn {
+    font-size: 14px;
+    padding: 10px 15px;
+    border-radius: 12px;
+}
+
+.max {
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    width: 100%;
+}

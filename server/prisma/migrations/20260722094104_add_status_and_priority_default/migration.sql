@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "tasks" ALTER COLUMN "status" SET DEFAULT 'TODO',
+ALTER COLUMN "priority" SET DEFAULT 'NONE';

@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    &__icon {
+        background-color: $color-accent;
+        border-radius: 8px;
+        text-align: center;
+        color: $color-white;
+        font-size: 14px;
+        padding-top: 4px;
+        width: 28px;
+        height: 28px;
+        font-weight: 700;
+    }
+
+    &__title {
+        font-size: 26px;
+        font-weight: 700;
+    }
+}

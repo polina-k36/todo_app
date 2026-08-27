@@ -1,0 +1,41 @@
+@import '../../styles/variables.scss';
+
+.main {
+    padding-top: 96px;
+    padding-bottom: 96px;
+    border-bottom: 1px solid $color-border;
+
+    &__title {
+        color: $color-accent;
+        background: #EEF2FF;
+        border: 1px solid #C7D2FE;
+        border-radius: 20px;
+        padding: 6px 12px;
+        font-size: 16px;
+    }
+
+    &__subtitle {
+        font-size: 72px;
+        margin-top: 32px;
+        span {
+            color: $color-accent;
+        }
+    }
+
+    &__desc {
+        margin-top: 24px;
+        color: $color-text-secondary;
+        font-size: 22px;
+        max-width: 600px;
+        text-align: center;
+        line-height: 26px;
+    }
+
+    &__btns {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+        gap: 20px;
+    }
+}

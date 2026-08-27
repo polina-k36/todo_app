@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+
+model User {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255) 
+  login String @db.VarChar(255) @unique
+  passwordHash String @db.VarChar(255)  @map("password_hash")
+  createdAt DateTime @default(now())  @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  
+  categories Category[] 
+  tasks Task[] 
+
+  @@map("users")
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  iconKey String? @db.VarChar(255) @map("icon_key")
+  color String? @db.VarChar(15)
+  userId Int? @map("user_id")
+  createdAt DateTime @default(now())  @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)  
+  tasks Task[]
+
+  @@unique([userId, name])
+  @@map("categories")
+}
+
+model Task {
+  id Int @id @default(autoincrement())
+  title String @db.VarChar(255)
+  description String? @db.Text 
+  status TaskStatus @default(TODO)
+  priority TaskPriority @default(NONE)
+  createdAt DateTime @default(now())  @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  dueDate DateTime? @map("due_date")
+  completedAt DateTime? @map("completed_at")
+  userId Int @map("user_id")
+  categoryId Int? @map("category_id")
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  
+  @@index([userId])
+  @@index([categoryId])
+  @@map("tasks")
+}
+
+
+
+enum TaskPriority {
+  NONE
+  LOW
+  MEDIUM
+  HIGH
+
+  @@map("task_priority")
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  ON_HOLD
+  DONE
+  CANCELLED
+
+  @@map("task_status")
+}
