@@ -10,6 +10,7 @@ interface IAuthProviderProps {
 
 const AuthProvider = ({children}: IAuthProviderProps) => {
     const [user, setUser] = useState<IUser | null>(null);
+    const [isAuthorized, setIsAuthorized] = useState(false);
     const [authError, setAuthError] = useState<string | null>(null);
     const [isAuthLoading, setIsAuthLoading] = useState(() => {
         return tokenStorage.get() ? true : false
@@ -20,6 +21,7 @@ const AuthProvider = ({children}: IAuthProviderProps) => {
         tokenStorage.remove();
         setUser(null);
         setAuthError(null);
+        setIsAuthorized(false);
     }
 
     const login = async (data: LoginData) => {
@@ -28,6 +30,7 @@ const AuthProvider = ({children}: IAuthProviderProps) => {
         tokenStorage.set(response.accessToken);
         setUser(response.user);
         setAuthError(null);
+        setIsAuthorized(true);
     }
 
     const register = async (data: RegisterData) => {
@@ -36,6 +39,7 @@ const AuthProvider = ({children}: IAuthProviderProps) => {
         tokenStorage.set(response.accessToken);
         setUser(response.user);
         setAuthError(null);
+        setIsAuthorized(true);
     }
 
     const checkAuth = () => {
@@ -51,6 +55,7 @@ const AuthProvider = ({children}: IAuthProviderProps) => {
         return getProfileInfo()
             .then(data => {
                 setUser(data.data);
+                setIsAuthorized(true);
             })
             .catch(e => {
                 if (e.statusCode === 401 || e.statusCode === 403) {
@@ -80,6 +85,7 @@ const AuthProvider = ({children}: IAuthProviderProps) => {
             user, 
             isAuthLoading, 
             authError,
+            isAuthorized,
             login, 
             logout, 
             register,

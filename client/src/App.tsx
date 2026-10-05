@@ -3,6 +3,7 @@ import MainPage from './pages/MainPage';
 import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './routes/ProtectedRoute';
 import AccountPage from './pages/AccountPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="/account" element={<AccountPage />} />
           </Route>
+          <Route path="*" element={<NotFoundPage />} />
       </Routes>
       
     </div>

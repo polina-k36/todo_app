@@ -5,6 +5,7 @@ import { createContext } from "react";
 interface IAuthContext {
     user: IUser | null;
     isAuthLoading: boolean;
+    isAuthorized: boolean; 
     authError: string | null;
     logout: () => Promise<void>;
     login: (data: LoginData) => Promise<void>;
