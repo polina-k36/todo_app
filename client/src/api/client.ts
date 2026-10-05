@@ -4,48 +4,45 @@ import { tokenStorage } from "./token";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-
 export async function request<T>(config: IRequestConfig): Promise<T> {
+  const fullUrl = BASE_URL + config.path;
 
-    const fullUrl = BASE_URL + config.path;
+  const token = tokenStorage.get();
 
-    const token = tokenStorage.get();
+  const isFormData = config.body instanceof FormData;
 
-    const isFormData = config.body instanceof FormData;
+  const headers: HeadersInit = {
+    Authorization: token ? `Bearer ${token}` : "",
+    ...config.headers,
+    ...(!isFormData && {
+      "Content-Type": "application/json",
+    }),
+  };
 
-    const headers: HeadersInit = {
-        "Authorization": token ? `Bearer ${token}` : '',
-        ...config.headers
-    };
+  const options: RequestInit = {
+    method: config.method,
+    headers,
+  };
 
-    if (!isFormData) {
-        headers["Content-Type"] = "application/json";
+  if (config.body !== undefined) {
+    if (config.body instanceof FormData) {
+      options.body = config.body;
+    } else {
+      options.body = JSON.stringify(config.body);
     }
+  }
 
-    const options: RequestInit = {
-        method: config.method,
-        headers
-    };
+  const response = await fetch(fullUrl, options);
 
-    if (config.body !== undefined) {
-        if (config.body instanceof FormData) {
-            options.body = config.body;
-        } else {
-            options.body = JSON.stringify(config.body);
-        }
-    }
+  if (!response.ok) {
+    const { error }: IServerErrorResponse = await response.json();
 
-    const response = await fetch(fullUrl, options);
+    throw new ApiError(error.message, error.statusCode);
+  }
 
-    if (!response.ok) {
-        const { error }: IServerErrorResponse = await response.json();
+  if (response.status === 204) {
+    return undefined as T;
+  }
 
-        throw new ApiError(error.message, error.statusCode);
-    }
-
-    if (response.status === 204) {
-        return undefined as T;
-    }
-
-    return response.json();
+  return response.json();
 }
