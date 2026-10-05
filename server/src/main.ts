@@ -10,6 +10,7 @@ async function bootstrap() {
   app.enableCors({
     origin: ["http://localhost:5173", "http://161.104.57.47"],
   });
+  app.setGlobalPrefix("api");
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -30,7 +31,7 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup("api", app, document);
+  SwaggerModule.setup("documentation", app, document);
 
   await app.listen(PORT, () =>
     console.log(`Сервер запущен на порту - ${PORT}`),
