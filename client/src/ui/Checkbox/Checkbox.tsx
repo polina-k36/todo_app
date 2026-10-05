@@ -18,7 +18,7 @@ const Checkbox = ({
         }}
       />
       <span className="flex h-5 w-5 items-center justify-center rounded-md border border-[#E2E0D8] pb-px text-sm text-[#FFFFFF] peer-checked:border-[#059669] peer-checked:bg-[#059669]">
-        ✔
+        {status === 'DONE' ? '✔' : ''}
       </span>
     </label>
   );
