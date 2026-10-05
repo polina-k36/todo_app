@@ -1,10 +1,9 @@
-import type { ICategory } from "@/types/category.types";
-import "./category-stats-card.scss";
-import ProgressBar from "../ProgressBar/ProgressBar";
+import type { ICategory } from '@/types/category.types';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 interface ICategoryStatsCardProps {
   allTasksCount: number;
-  border: "none" | "bottom";
+  border: 'none' | 'bottom';
   category: ICategory;
 }
 
@@ -18,28 +17,32 @@ const CategoryStatsCard = ({
   const count = tasksCount ?? 0;
 
   const percent =
-    typeof Math.round((count / allTasksCount) * 100) === "number" &&
+    typeof Math.round((count / allTasksCount) * 100) === 'number' &&
     Math.round((count / allTasksCount) * 100) !== Infinity &&
     !isNaN(Math.round((count / allTasksCount) * 100))
       ? Math.round((count / allTasksCount) * 100)
       : 0;
 
-  const colorCategory = color ?? "#4F46E5";
+  const colorCategory = color ?? '#4F46E5';
   const colorBackground = `color-mix(in srgb, ${colorCategory} 10%, transparent)`;
   return (
-    <div className={`category-stats-card border-${border}`}>
+    <div
+      className={`flex w-full items-center justify-between gap-2.5 px-5 py-3.5 border-${border}`}
+    >
       <div
-        className="category-stats-card__icon"
+        className="flex h-8 w-8 items-center justify-center rounded-xl [&_img]:h-5 [&_img]:w-5"
         style={{ background: `${colorBackground}` }}
       >
         <img src={iconKey} />
       </div>
-      <div className="category-stats-card__title">{name}</div>
-      <div className="category-stats-card__progress">
+      <div className="flex-1 text-sm font-semibold text-[#1A1917] capitalize">
+        {name}
+      </div>
+      <div className="min-w-0 flex-1">
         <ProgressBar percent={percent} color={color} />
       </div>
       <div
-        className="category-stats-card__count"
+        className="w-5 text-right text-xs font-bold"
         style={{ color: `${colorCategory}` }}
       >
         {count}

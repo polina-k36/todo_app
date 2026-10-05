@@ -1,23 +1,22 @@
 export const getErrorTitle = (statusCode: number): string => {
-    
-    if (statusCode >= 500) {
-        return 'Ошибка сервера';        
-    }
-    
-    switch (statusCode) {
-        case 401:
-            return 'Ошибка авторизации';
+  if (statusCode >= 500) {
+    return 'Ошибка сервера';
+  }
 
-        case 403:
-            return 'Доступ запрещен';
+  switch (statusCode) {
+    case 401:
+      return 'Ошибка авторизации';
 
-        case 404:
-            return 'Не найдено';
+    case 403:
+      return 'Доступ запрещен';
 
-        case 409:
-            return 'Конфликт данных';
+    case 404:
+      return 'Не найдено';
 
-        default:
-            return 'Непредвиденная ошибка';
-    }
-}
+    case 409:
+      return 'Конфликт данных';
+
+    default:
+      return 'Непредвиденная ошибка';
+  }
+};

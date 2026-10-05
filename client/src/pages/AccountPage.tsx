@@ -1,60 +1,58 @@
-import Header from "@/components/Header/Header";
-import Logo from "@/ui/Logo/Logo";
-import Button from "@/ui/Button/Button";
-import LogoutIcon from "@/assets/icons/icon-logout.svg?react";
-import BackIcon from "@/assets/icons/icon-back.svg?react";
-import { Link, useNavigate } from "react-router-dom";
+import Header from '@/components/Header/Header';
+import Logo from '@/ui/Logo/Logo';
+import Button from '@/ui/Button/Button';
+import LogoutIcon from '@/assets/icons/icon-logout.svg?react';
+import BackIcon from '@/assets/icons/icon-back.svg?react';
+import { Link, useNavigate } from 'react-router-dom';
+import InfoUserCard from '@/components/InfoUserCard/InfoUserCard';
+import UserStatsPanel from '@/components/UserStatsPanel/UserStatsPanel';
+import ProgressPanel from '@/components/ProgressPanel/ProgressPanel';
 
-import "@/styles/account-page.scss";
-import InfoUserCard from "@/components/InfoUserCard/InfoUserCard";
-import UserStatsPanel from "@/components/UserStatsPanel/UserStatsPanel";
-import ProgressPanel from "@/components/ProgressPanel/ProgressPanel";
+import CategoriesList from '@/components/CategoriesList/CategoriesList';
+import { useEffect, useState } from 'react';
+import type { ICategory } from '@/types/category.types';
+import { getAllCategories } from '@/api/categories';
 
-import CategoriesList from "@/components/CategoriesList/CategoriesList";
-import { useEffect, useState } from "react";
-import type { ICategory } from "@/types/category.types";
-import { getAllCategories } from "@/api/categories";
-
-import UserEditModal from "@/components/UserModal/UserEditModal/UserEditModal";
-import { updatePassword } from "@/api/auth";
-import type { IEditPassword } from "@/types/user.types";
-import type { AccountModalState } from "@/types/modal-state.types";
-import type { IStatsTask } from "@/types/task.types";
-import { getStatsTasks } from "@/api/tasks";
-import { useAuth } from "@/auth/useAuth";
+import UserEditModal from '@/components/UserModal/UserEditModal/UserEditModal';
+import { updatePassword } from '@/api/auth';
+import type { IEditPassword } from '@/types/user.types';
+import type { AccountModalState } from '@/types/modal-state.types';
+import type { IStatsTask } from '@/types/task.types';
+import { getStatsTasks } from '@/api/tasks';
+import { useAuth } from '@/auth/useAuth';
 
 function createStatObject(
   statKey: string,
   count: number,
 ): { id: number; name: string; count: number; color: string } {
   switch (statKey) {
-    case "total":
+    case 'total':
       return {
         id: 1,
-        name: "всего задач",
+        name: 'всего задач',
         count,
-        color: "#1A1917",
+        color: '#1A1917',
       };
-    case "completed":
+    case 'completed':
       return {
         id: 2,
-        name: "выполнено",
+        name: 'выполнено',
         count,
-        color: "#059669",
+        color: '#059669',
       };
-    case "overdue":
+    case 'overdue':
       return {
         id: 3,
-        name: "просрочено",
+        name: 'просрочено',
         count,
-        color: "#DC2626",
+        color: '#DC2626',
       };
-    case "inProgress":
+    case 'inProgress':
       return {
         id: 4,
-        name: "в процессе",
+        name: 'в процессе',
         count,
-        color: "#4F46E5",
+        color: '#4F46E5',
       };
 
     default:
@@ -88,22 +86,22 @@ const AccountPage = () => {
 
   const onLogout = () => {
     logout();
-    navigate("/welcome");
+    navigate('/welcome');
   };
 
   return (
     <>
       <Header>
         <Button size="small" variant="transparent">
-          <div className="account-btns__content">
+          <div className="flex items-center justify-center gap-1.5 [&_svg]:h-4 [&_svg]:w-4">
             <BackIcon />
             <Link to="/">К задачам</Link>
           </div>
         </Button>
         <Logo />
-        <div className="container-btns">
+        <div className="flex items-center gap-2 sm:gap-3">
           <Button size="small" variant="danger" onClick={onLogout}>
-            <div className="account-btns__content">
+            <div className="flex items-center justify-center gap-1.5 [&_svg]:h-4 [&_svg]:w-4">
               <LogoutIcon />
               <p>Выйти</p>
             </div>
@@ -111,16 +109,16 @@ const AccountPage = () => {
         </div>
       </Header>
 
-      <main className="container account-page">
+      <main className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 py-8 sm:px-6 lg:px-8">
         {loading ? (
-          "Загрузка"
+          'Загрузка'
         ) : (
           <>
             {user ? (
               <InfoUserCard
                 user={user}
                 onEditUser={() =>
-                  setModal({ type: "user-edit", userId: user?.id ?? -1 })
+                  setModal({ type: 'user-edit', userId: user?.id ?? -1 })
                 }
               />
             ) : null}
@@ -142,7 +140,7 @@ const AccountPage = () => {
               allTasksCount={taskStats?.total ?? 0}
               categories={categories}
             />
-            {modal && modal.type === "user-edit" && user ? (
+            {modal && modal.type === 'user-edit' && user ? (
               <UserEditModal
                 user={user}
                 submitInfoUser={updateCurrentUser}

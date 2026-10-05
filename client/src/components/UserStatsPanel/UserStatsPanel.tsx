@@ -1,5 +1,4 @@
-import InfoCard from "@/ui/InfoCard/InfoCard";
-import "./user-stats-panel.scss";
+import InfoCard from '@/ui/InfoCard/InfoCard';
 
 interface IStats {
   id: number;
@@ -14,9 +13,11 @@ interface IUserStatsPanelProps {
 
 const UserStatsPanel = ({ stats }: IUserStatsPanelProps) => {
   return (
-    <div className="user-stats-panel">
-      <p className="form-group__label">статистика</p>
-      <div className="user-stats-panel__grid">
+    <div className="mt-6 w-full">
+      <p className="text-xs font-semibold text-[#7A7669] uppercase">
+        статистика
+      </p>
+      <div className="mt-2.5 grid w-full grid-cols-1 gap-2.5 sm:grid-cols-2 [&_div]:w-full">
         {stats.map((stat) => (
           <InfoCard
             key={stat.id}

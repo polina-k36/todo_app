@@ -1,5 +1,3 @@
-import "./progress-bar.scss";
-
 const ProgressBar = ({
   percent,
   color,
@@ -8,12 +6,12 @@ const ProgressBar = ({
   color?: string;
 }) => {
   return (
-    <div className="progress-bar">
+    <div className="relative h-2 w-full overflow-hidden rounded bg-[#E2E0D8]">
       <div
-        className="progress-bar__value"
+        className="absolute [inset:0_auto_0_0] rounded-[inherit] bg-[#4F46E5]"
         style={{
           width: `${percent}%`,
-          backgroundColor: `${color ?? "#4F46E5"}`,
+          backgroundColor: `${color ?? '#4F46E5'}`,
         }}
       />
     </div>

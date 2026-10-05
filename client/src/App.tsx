@@ -7,16 +7,15 @@ import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
-    <div className="App">
+    <div className="">
       <Routes>
-          <Route path="/welcome" element={<WelcomePage />} />
-          <Route element={<ProtectedRoute/>}>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/account" element={<AccountPage />} />
-          </Route>
-          <Route path="*" element={<NotFoundPage />} />
+        <Route path="/welcome" element={<WelcomePage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/account" element={<AccountPage />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      
     </div>
   );
 }

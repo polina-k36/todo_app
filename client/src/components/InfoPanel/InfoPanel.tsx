@@ -1,21 +1,30 @@
-import InfoCard from "@/ui/InfoCard/InfoCard";
-import './info-panel.scss';
+import InfoCard from '@/ui/InfoCard/InfoCard';
 
 interface IInfoPanelProps {
-    all: number;
-    done: number;
-    overdue: number;
+  all: number;
+  done: number;
+  overdue: number;
 }
 
-const InfoPanel = ({all, done, overdue}: IInfoPanelProps) => {    
-    return (
-        <div className="info-panel">
-            <InfoCard title='всего задач' value={all} colorValue='#1A1917'/>
-            <InfoCard title='выполнено' value={done} colorValue='#1A1917' 
-                      subValue={( typeof Math.round(done/all*100) === 'number' && Math.round(done/all*100) !== Infinity && !isNaN(Math.round(done/all*100))) ? `${Math.round(done/all*100)}%` : ''}/>
-            <InfoCard title='просрочено' value={overdue} colorValue='#DC2626'/>            
-        </div>
-    );
+const InfoPanel = ({ all, done, overdue }: IInfoPanelProps) => {
+  return (
+    <div className="mt-6 grid w-full grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+      <InfoCard title="всего задач" value={all} colorValue="#1A1917" />
+      <InfoCard
+        title="выполнено"
+        value={done}
+        colorValue="#1A1917"
+        subValue={
+          typeof Math.round((done / all) * 100) === 'number' &&
+          Math.round((done / all) * 100) !== Infinity &&
+          !isNaN(Math.round((done / all) * 100))
+            ? `${Math.round((done / all) * 100)}%`
+            : ''
+        }
+      />
+      <InfoCard title="просрочено" value={overdue} colorValue="#DC2626" />
+    </div>
+  );
 };
 
 export default InfoPanel;

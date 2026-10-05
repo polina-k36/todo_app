@@ -1,16 +1,15 @@
-import Modal from "@/components/Modal/Modal";
-import TaskForm from "../TaskForm/TaskForm";
-import "./task-form-modal.scss";
-import Button from "@/ui/Button/Button";
-import type { ICreateTask, IEditTask, ITask } from "@/types/task.types";
-import { formatDate } from "@/utils/format-date";
+import Modal from '@/components/Modal/Modal';
+import TaskForm from '../TaskForm/TaskForm';
+import Button from '@/ui/Button/Button';
+import type { ICreateTask, IEditTask, ITask } from '@/types/task.types';
+import { formatDate } from '@/utils/format-date';
 
-import DeleteIcon from "@/assets/icons/icon-delete.svg?react";
-import { useEffect, useState } from "react";
-import { getTaskById } from "@/api/tasks";
+import DeleteIcon from '@/assets/icons/icon-delete.svg?react';
+import { useEffect, useState } from 'react';
+import { getTaskById } from '@/api/tasks';
 
 interface IEditTaskFormModalProps {
-  mode: "edit";
+  mode: 'edit';
   taskId: number;
   onCloseModal: () => void;
   onClickCancelBtn?: () => void;
@@ -19,7 +18,7 @@ interface IEditTaskFormModalProps {
 }
 
 interface ICreateTaskFormModalProps {
-  mode: "create";
+  mode: 'create';
   taskId?: never;
   onCloseModal: () => void;
   onClickCancelBtn?: () => void;
@@ -43,10 +42,10 @@ const TaskFormModal = ({
 }: ITaskFormModalProps) => {
   const [task, setTask] = useState<ITask | undefined>(undefined);
   const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(false);
+  //TODO const [error, setError] = useState(false);
 
   const onSubmitForm = (data: IEditTask | ICreateTask) => {
-    if (mode === "edit") {
+    if (mode === 'edit') {
       submitForm(taskId, data as IEditTask);
     } else {
       submitForm(data);
@@ -64,29 +63,29 @@ const TaskFormModal = ({
   }, [taskId]);
 
   const colorCategory =
-    task && task.category ? (task.category.color ?? "#4F46E5") : "#4F46E5";
+    task && task.category ? (task.category.color ?? '#4F46E5') : '#4F46E5';
   const colorBackground = `color-mix(in srgb, ${colorCategory} 10%, transparent)`;
 
   const header =
-    mode === "create" ? (
-      <div className="task-form-modal__title">Новая задача</div>
+    mode === 'create' ? (
+      <div className="mt-2 text-xl font-bold text-[#1A1917]">Новая задача</div>
     ) : (
-      <div className="modal-task__header">
+      <div className="relative flex min-w-0 flex-1 items-start justify-start gap-2.5">
         <div
-          className="modal-task__header_icon"
+          className="flex h-9 w-9 items-center justify-center rounded-xl [&_img]:h-6"
           style={{ background: colorBackground }}
         >
           <img src={task?.category?.iconKey} alt="" />
         </div>
-        <div className="modal-task__header_info">
+        <div className="min-w-0 flex-1">
           <div
-            className="modal-task__header_title"
+            className="text-sm font-semibold uppercase"
             style={{ color: colorCategory }}
           >
             {task?.category?.name}
           </div>
           {task?.createdAt ? (
-            <div className="modal-task__header_subtitle">
+            <div className="mt-0.5 text-sm font-normal text-[#7A7669]">
               создано {formatDate(task.createdAt, false)}
             </div>
           ) : null}
@@ -95,18 +94,17 @@ const TaskFormModal = ({
     );
 
   const footer =
-    mode === "edit" ? (
-      <div className="task-form-modal__btns">
+    mode === 'edit' ? (
+      <div className="mt-5 flex w-full items-center justify-between gap-5">
         <Button
           size="modal-btn"
           variant="transparent"
           color="#DC2626"
           onClick={() => onClickDeleteBtn(taskId)}
         >
-          <DeleteIcon className="modal-task__footer_icon" />{" "}
-          <p className="modal-task__footer_btn">Удалить</p>
+          <DeleteIcon className="h-5 w-5" /> <p className="ml-2.5">Удалить</p>
         </Button>
-        <div className="task-form-modal__btns-right">
+        <div className="flex items-center justify-center gap-2.5">
           <Button
             size="modal-btn"
             variant="transparent"
@@ -130,17 +128,17 @@ const TaskFormModal = ({
   return (
     <Modal
       header={header}
-      size={mode === "create" ? "medium" : "big"}
+      size={mode === 'create' ? 'medium' : 'big'}
       onCloseModal={onCloseModal}
       footer={footer}
     >
-      {loading && mode === "edit" ? (
+      {loading && mode === 'edit' ? (
         <div>Загрузка....</div>
       ) : (
         <TaskForm task={task} onSubmitForm={onSubmitForm} />
       )}
-      {mode === "create" ? (
-        <div className="task-form-modal__btns">
+      {mode === 'create' ? (
+        <div className="mt-5 flex w-full items-center justify-between gap-5">
           <Button size="max" variant="transparent" onClick={onCloseModal}>
             Отмена
           </Button>

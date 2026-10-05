@@ -1,12 +1,12 @@
-import Modal from "@/components/Modal/Modal";
-import CategoryForm from "../CategoryForm/CategoryForm";
-import { useEffect, useState } from "react";
-import { getCategoryById } from "@/api/categories";
-import type { ICategory } from "@/types/category.types";
+import Modal from '@/components/Modal/Modal';
+import CategoryForm from '../CategoryForm/CategoryForm';
+import { useEffect, useState } from 'react';
+import { getCategoryById } from '@/api/categories';
+import type { ICategory } from '@/types/category.types';
 //передача категории а не айди??????
 
 interface IEditCategoryFormModalProps {
-  mode: "edit";
+  mode: 'edit';
   categoryId: number;
   onCloseModal: () => void;
   onClickCancelBtn?: () => void;
@@ -14,7 +14,7 @@ interface IEditCategoryFormModalProps {
 }
 
 interface ICreateCategoryFormModalProps {
-  mode: "create";
+  mode: 'create';
   categoryId?: never;
   onCloseModal: () => void;
   onClickCancelBtn?: () => void;
@@ -22,8 +22,7 @@ interface ICreateCategoryFormModalProps {
 }
 
 type ICategoryFormModalProps =
-  | IEditCategoryFormModalProps
-  | ICreateCategoryFormModalProps;
+  IEditCategoryFormModalProps | ICreateCategoryFormModalProps;
 
 const CategoryFormModal = ({
   mode,
@@ -49,17 +48,17 @@ const CategoryFormModal = ({
 
   return (
     <Modal
-      header={mode === "create" ? "Новая категория" : "Редактирование"}
+      header={mode === 'create' ? 'Новая категория' : 'Редактирование'}
       size="medium"
       bodyPadding="24px 20px"
       onCloseModal={onCloseModal}
     >
-      {mode === "create" ? (
+      {mode === 'create' ? (
         <CategoryForm onSubmitForm={submitForm} />
       ) : loading ? (
-        "Загрзука..."
+        'Загрзука...'
       ) : error ? (
-        "Ошибка"
+        'Ошибка'
       ) : (
         <CategoryForm
           category={category}

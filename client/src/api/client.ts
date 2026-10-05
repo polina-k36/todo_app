@@ -1,6 +1,6 @@
-import type { IRequestConfig, IServerErrorResponse } from "@/types/api.types";
-import { ApiError } from "./errors/api-error";
-import { tokenStorage } from "./token";
+import type { IRequestConfig, IServerErrorResponse } from '@/types/api.types';
+import { ApiError } from './errors/api-error';
+import { tokenStorage } from './token';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -12,10 +12,10 @@ export async function request<T>(config: IRequestConfig): Promise<T> {
   const isFormData = config.body instanceof FormData;
 
   const headers: HeadersInit = {
-    Authorization: token ? `Bearer ${token}` : "",
+    Authorization: token ? `Bearer ${token}` : '',
     ...config.headers,
     ...(!isFormData && {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     }),
   };
 
